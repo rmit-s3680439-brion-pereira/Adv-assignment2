@@ -2,8 +2,10 @@
 public class MiniNet {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.print("Hello");
+		
+		GUIMiniNet mininet = new GUIMiniNet();
+		mininet.setVisible(true);
+
 	}
 
 }
