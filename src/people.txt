@@ -1,0 +1,5 @@
+Alex Smith,img.png,student at RMIT,M,21,WA
+Ben Turner,img.png,manager at Coles,M,35,VIC
+Hannah White,img.png,student at PLC,F,14,VIC
+Zoe Foster,img.png,Founder of ZFX, F,28,VIC
+Mark Turner,img.png,student at RMIT,M,2,VIC

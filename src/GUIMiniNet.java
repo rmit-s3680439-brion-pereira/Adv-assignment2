@@ -10,6 +10,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	File files;
+	PersonDao personDao = new PersonDao();
 
 	public GUIMiniNet() {
 		initComponents();
