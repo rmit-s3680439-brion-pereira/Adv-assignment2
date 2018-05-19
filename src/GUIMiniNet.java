@@ -11,14 +11,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- * GUIMiniNet class has code to build the GUI and it uses PersonDao to access
- * Database tables.
+ * GUIMiniNet class has code to build the GUI and it uses PersonDao to access Database tables.
  * 
  * @author Brion Pereira
  * @createdOn 18 May 2018
  * 
  * @lastUpdatedBy Brion Pereira
- * @lastUpdatedOn 19 May 2018
+ * @lastUpdatedOn 20 May 2018
  */
 public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
@@ -407,6 +406,30 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				jComboBox3.addItem(p);
 			}
 
+		}
+		
+		//Action event to Reset
+		if (e.getSource() == jButton5) {
+			jTextField1.setText("");
+			jTextField2.setText("");
+			jTextField3.setText("");
+			jTextField4.setText("");
+
+			jComboBox3.removeAllItems();
+			jTextArea1.setText("");
+
+			try {
+				personDao.commitConn();
+				personDao.closeRS();
+				personDao.closeConn();
+			} catch (SQLException ex) {
+			}
+
+		} 
+		
+		//Exit
+		if (e.getSource() == exit) {
+			System.exit(0);
 		}
 	}
 }
