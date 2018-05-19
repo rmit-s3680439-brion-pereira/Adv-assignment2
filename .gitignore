@@ -3,7 +3,7 @@
 .classpath
 .settings
 .project
-.tmp
-.lobs
-.logs
-.properties
+MiniNetDB.tmp
+MiniNetDB.lobs
+MiniNetDB.logs
+MiniNetDB.properties
