@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +23,7 @@ import org.hsqldb.Server;
  * @author Abhilash Nunes
  * @createdOn 18 May 2018
  * 
- * @lastUpdatedBy Brion Pereira
+ * @lastUpdatedBy Abhilash Nunes
  * @lastUpdatedOn 19 May 2018
  *
  */
@@ -108,6 +109,50 @@ public class PersonDao {
 			persons.add(rs.getString(1));
 		}
 		return persons;
+	}
+	
+	/**
+	 * Method to add image
+	 * @param p Person
+	 * @param photoFile Image
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 */
+	public void save(Person p, File photoFile) throws SQLException, FileNotFoundException {
+		PreparedStatement pstmt = connection.prepareStatement("insert into people values(?,?,?,?,?,?)");
+		pstmt.setString(1, p.getName());
+		InputStream inputImage = new FileInputStream(photoFile);
+		pstmt.setBinaryStream(2, inputImage, (int) (photoFile.length()));
+		pstmt.setString(3, p.getStatus());
+		pstmt.setString(4, p.getGender());
+		pstmt.setInt(5, p.getAge());
+		pstmt.setString(6, p.getState());
+		pstmt.execute();
+	}
+	
+	/**
+	 * Method to search name of the person
+	 * @param name Need to enter name of the person
+	 * @return person
+	 */
+	public Person getByName(String name) {
+		System.out.println("loading ");
+		try {
+			rs = connection.prepareStatement("select * from people where name = '" + name + "';").executeQuery();
+			rs.next();
+			Person person = new Person();
+			person.setName(rs.getString(1));
+			person.setAge(rs.getInt(5));
+			person.setGender(rs.getString(4));
+			person.setState(rs.getString(6));
+			person.setStatus(rs.getString(3));
+			person.setPhoto(rs.getBlob(2));
+
+			return person;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public void commitConn() throws SQLException {

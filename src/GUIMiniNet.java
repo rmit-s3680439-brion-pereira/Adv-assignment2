@@ -1,12 +1,18 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
- * GUIMiniNet class has code to build the GUI and it uses PersonDao to access Database tables.
+ * GUIMiniNet class has code to build the GUI and it uses PersonDao to access
+ * Database tables.
  * 
  * @author Brion Pereira
  * @createdOn 18 May 2018
@@ -272,6 +278,119 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// System.out.println("MiniNet");
+
+		// Action Event on clicking Add a Person and enable GUI component in jPanel2
+		if (e.getSource() == jButton1) {
+			jTextField1.setEnabled(true);
+			jTextField2.setEnabled(true);
+			jTextField3.setEnabled(true);
+			jTextField4.setEnabled(true);
+			jComboBox2.setEnabled(true);
+			jButton6.setEnabled(true);
+			jButton4.setEnabled(true);
+		}
+
+		// Action Event to add image
+		if (e.getSource() == jButton6) {
+			fileChooser = new JFileChooser(new File("./src"));
+			int returnVal = fileChooser.showOpenDialog(jButton1);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				files = fileChooser.getSelectedFile();
+				JOptionPane.showMessageDialog(this, "Photo name: " + files.getName(), "Choose Image",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+
+		// Action Event to display person
+		if (e.getSource() == jButton2) {
+			if (jComboBox3.getItemCount() == 0)
+				JOptionPane.showMessageDialog(this, "First Load Name From Database", "Loading",
+						JOptionPane.INFORMATION_MESSAGE);
+			else {
+
+				String name = jComboBox3.getSelectedItem().toString();
+				jTextArea1.setText("Name \t\t Gender \t Age \t State \t Status");
+				jTextArea1.append(
+						"\n================================================================================\n\n");
+
+				Person person = personDao.getByName(name);
+				try {
+					personDao.commitConn();
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+				jTextArea1.append(person.getName() + " \t\t " + person.getGender() + "\t" + person.getAge() + "\t"
+						+ person.getState() + "\t" + person.getStatus());
+				jTextArea1.append(
+						"\n================================================================================\n\n");
+				Blob blob = person.getPhoto();
+				ImageIcon imageIcon = null;
+				try {
+					imageIcon = new ImageIcon(blob.getBytes(1, (int) blob.length()));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(this,
+						"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: " + person.getStatus()
+								+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
+						"Display Information", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+
+			}
+
+		}
+
+		// Action Event to submit button to add person
+		if (e.getSource() == jButton4) {
+			try {
+				String name = jTextField2.getText().trim();
+				String status = jTextField3.getText().trim();
+				String gender = jTextField1.getText().trim();
+				int age = Integer.parseInt(jTextField4.getText().trim());
+				String state = jComboBox2.getSelectedItem().toString();
+
+				Person p = new Person();
+				p.setName(name);
+				p.setAge(age);
+				p.setGender(gender);
+				p.setState(state);
+				p.setStatus(status);
+
+				personDao.save(p, files);
+
+				JOptionPane.showMessageDialog(this, "Added Successfully in Network !!!", "Add Person",
+						JOptionPane.INFORMATION_MESSAGE);
+
+				jComboBox3.removeAllItems();
+				List<String> persons = null;
+				try {
+					persons = personDao.getAllNames();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				for (String person : persons) {
+					jComboBox3.addItem(person);
+				}
+
+				personDao.commitConn();
+			} catch (IOException ex) {
+			} catch (SQLException ex) {
+			}
+
+			// Disable to jPanel2
+			jTextField1.setEnabled(false);
+			jTextField2.setEnabled(false);
+			jTextField3.setEnabled(false);
+			jTextField4.setEnabled(false);
+			jComboBox2.setEnabled(false);
+			jButton6.setEnabled(false);
+			jButton4.setEnabled(false);
+
+		}
 
 		// Action event on clicking "Load Person Name"
 		if (e.getSource() == jButton7) {
