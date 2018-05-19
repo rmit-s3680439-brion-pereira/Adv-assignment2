@@ -27,7 +27,7 @@ import org.hsqldb.Server;
  *
  */
 public class PersonDao {
-	
+
 	Server hsqlServer = null;
 	Connection connection = null;
 	ResultSet rs = null;
@@ -38,7 +38,7 @@ public class PersonDao {
 		hsqlServer.setSilent(true);
 		hsqlServer.setDatabaseName(0, "MiniNetDB");
 		hsqlServer.setDatabasePath(0, "file:MYDB");
-		
+
 		//DB configuration properties
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
@@ -47,7 +47,7 @@ public class PersonDao {
 			connection.prepareStatement("Drop table people if exists;").execute();
 			connection.prepareStatement(
 					"create table people(name varchar(20) not null, photo blob, status varchar(60) not null, gender varchar(10) not null, age integer not null, state varchar(40) not null);")
-					.execute();
+			.execute();
 
 			String line = br.readLine();
 			while (line != null) {
@@ -72,7 +72,7 @@ public class PersonDao {
 			connection.prepareStatement("drop table relation if exists;").execute();
 			connection.prepareStatement(
 					"create table relation(name1 varchar(60) not null, name2 varchar(60) not null, relationship varchar(45) not null);")
-					.execute();
+			.execute();
 			line = br.readLine();
 			while (line != null) {
 				String[] data = line.split(",");
@@ -95,7 +95,7 @@ public class PersonDao {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 *Implementation of method to get all the name
 	 * @return List of Person name
@@ -108,6 +108,18 @@ public class PersonDao {
 			persons.add(rs.getString(1));
 		}
 		return persons;
+	}
+
+	public void commitConn() throws SQLException {
+		connection.commit();
+	}
+
+	public void closeConn() throws SQLException {
+		connection.close();
+	}
+
+	public void closeRS() throws SQLException {
+		rs.close();
 	}
 
 }

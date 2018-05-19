@@ -279,6 +279,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 			List<String> persons = null;
 			try {
 				persons = personDao.getAllNames();
+				personDao.commitConn();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
