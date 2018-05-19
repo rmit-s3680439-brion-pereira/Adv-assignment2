@@ -1,6 +1,11 @@
-//Author: Abhilash
+
 import java.sql.Blob;
 
+/**
+ * Person class has getters-setters.
+ * @author Abhilash Nunes
+ * @createdOn 18 May 2018
+ */
 public class Person {
 
 	private String name;
