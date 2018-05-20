@@ -336,14 +336,14 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				}
 				JOptionPane.showMessageDialog(this,
 						"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: " + person.getStatus()
-						+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
+								+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
 						"Display Information", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 
 			}
 
 		}
-		
-		//Action Event to delete person
+
+		// Action Event to delete person
 		if (e.getSource() == jButton3) {
 			if (jComboBox3.getItemCount() == 0)
 				JOptionPane.showMessageDialog(this, "First Load Name From Database", "Loading",
@@ -378,6 +378,9 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				int age = Integer.parseInt(jTextField4.getText().trim());
 				String state = jComboBox2.getSelectedItem().toString();
 
+				if (age <= 0 || age > 150)
+					throw new NoSuchAgeException("Age should be greater than 0 and less than 150");
+
 				Person p = new Person();
 				p.setName(name);
 				p.setAge(age);
@@ -403,6 +406,8 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				}
 
 				personDao.commitConn();
+			} catch (NoSuchAgeException ex) {
+				JOptionPane.showMessageDialog(this, ex, "NoSuchAgeException", JOptionPane.ERROR_MESSAGE);
 			} catch (IOException ex) {
 			} catch (SQLException ex) {
 			}
@@ -506,7 +511,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				} else
 					JOptionPane.showMessageDialog(this,
 							"Both Name " + name1 + " and " + name2
-							+ " Not Found in Social Network, Please Enter Existing Name",
+									+ " Not Found in Social Network, Please Enter Existing Name",
 							"Relation", JOptionPane.ERROR_MESSAGE);
 			}
 
