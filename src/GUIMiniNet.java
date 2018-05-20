@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  * @author Brion Pereira
  * @createdOn 18 May 2018
  * 
- * @lastUpdatedBy Brion Pereira
- * @lastUpdatedOn 20 May 2018
+ * @lastUpdatedBy Abhilash Nunes
+ * @lastUpdatedOn 21 May 2018
  */
 public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
@@ -341,6 +341,32 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 			}
 
+		}
+		
+		//Action Event to delete person
+		if (e.getSource() == jButton3) {
+			if (jComboBox3.getItemCount() == 0)
+				JOptionPane.showMessageDialog(this, "First Load Name From Database", "Loading",
+						JOptionPane.INFORMATION_MESSAGE);
+			else {
+				String name = jComboBox3.getSelectedItem().toString();
+
+				name = name.trim();
+				try {
+					personDao.delete(name);
+					personDao.commitConn();
+					JOptionPane.showMessageDialog(this, "Deleted Successfully in Network !!!", "Deleted",
+							JOptionPane.INFORMATION_MESSAGE);
+					jComboBox3.removeAllItems();
+					List<String> persons = personDao.getAllNames();
+
+					for (String person : persons) {
+						jComboBox3.addItem(person);
+					}
+
+				} catch (Exception ex) {
+				}
+			}
 		}
 
 		// Action Event to submit button to add person

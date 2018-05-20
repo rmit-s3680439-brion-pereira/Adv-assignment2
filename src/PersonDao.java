@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import org.hsqldb.Server;
@@ -22,7 +23,7 @@ import org.hsqldb.Server;
  * @createdOn 18 May 2018
  * 
  * @lastUpdatedBy Abhilash Nunes
- * @lastUpdatedOn 19 May 2018
+ * @lastUpdatedOn 21 May 2018
  *
  */
 public class PersonDao {
@@ -150,6 +151,17 @@ public class PersonDao {
 		pstmt.setString(2, name2);
 		pstmt.setString(3, rel);
 		pstmt.execute();
+	}
+	
+	/**
+	 * Delete person for the network.
+	 * @param name Person Name
+	 * @throws SQLException
+	 */
+	public void delete(String name) throws SQLException {
+		Statement st = connection.createStatement();
+		st.executeQuery("delete from people where name ='" + name + "';");
+		st.executeQuery("delete from relation where name1 ='" + name + "' or name2 ='" + name + "';");
 	}
 
 	/**
