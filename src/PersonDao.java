@@ -13,9 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hsqldb.Server;
-
 
 /**
  * PersonDao is Data object access. It contains CRUD operations
@@ -40,7 +38,7 @@ public class PersonDao {
 		hsqlServer.setDatabaseName(0, "MiniNetDB");
 		hsqlServer.setDatabasePath(0, "file:MYDB");
 
-		//DB configuration properties
+		// DB configuration properties
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 			connection = DriverManager.getConnection("jdbc:hsqldb:MiniNetDB", "sa", "123");
@@ -48,7 +46,7 @@ public class PersonDao {
 			connection.prepareStatement("Drop table people if exists;").execute();
 			connection.prepareStatement(
 					"create table people(name varchar(20) not null, photo blob, status varchar(60) not null, gender varchar(10) not null, age integer not null, state varchar(40) not null);")
-			.execute();
+					.execute();
 
 			String line = br.readLine();
 			while (line != null) {
@@ -73,7 +71,7 @@ public class PersonDao {
 			connection.prepareStatement("drop table relation if exists;").execute();
 			connection.prepareStatement(
 					"create table relation(name1 varchar(60) not null, name2 varchar(60) not null, relationship varchar(45) not null);")
-			.execute();
+					.execute();
 			line = br.readLine();
 			while (line != null) {
 				String[] data = line.split(",");
@@ -98,7 +96,8 @@ public class PersonDao {
 	}
 
 	/**
-	 *Implementation of method to get all the name
+	 * Implementation of method to get all the name
+	 * 
 	 * @return List of Person name
 	 * @throws SQLException
 	 */
@@ -110,11 +109,14 @@ public class PersonDao {
 		}
 		return persons;
 	}
-	
+
 	/**
 	 * Method to add image
-	 * @param p Person
-	 * @param photoFile Image
+	 * 
+	 * @param p
+	 *            Person
+	 * @param photoFile
+	 *            Image
 	 * @throws SQLException
 	 * @throws FileNotFoundException
 	 */
@@ -129,10 +131,32 @@ public class PersonDao {
 		pstmt.setString(6, p.getState());
 		pstmt.execute();
 	}
-	
+
+	/**
+	 * Override Save Method to define relation
+	 * 
+	 * @param name1
+	 *            Name of Person1
+	 * @param name2
+	 *            Name of Person2
+	 * @param rel
+	 *            Relation i.e Parent/Friends/Classmates
+	 * @throws SQLException
+	 */
+
+	public void save(String name1, String name2, String rel) throws SQLException {
+		PreparedStatement pstmt = connection.prepareStatement("insert into relation values(?,?,?)");
+		pstmt.setString(1, name1);
+		pstmt.setString(2, name2);
+		pstmt.setString(3, rel);
+		pstmt.execute();
+	}
+
 	/**
 	 * Method to search name of the person
-	 * @param name Need to enter name of the person
+	 * 
+	 * @param name
+	 *            Need to enter name of the person
 	 * @return person
 	 */
 	public Person getByName(String name) {
@@ -153,6 +177,44 @@ public class PersonDao {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * Check whether the Person exists
+	 * 
+	 * @param name
+	 *            Pass name of the person
+	 * @return Name of the person if exists
+	 * @throws SQLException
+	 */
+	public int isPersonExisting(String name) throws SQLException {
+		rs = connection.prepareStatement("select * from people where name = '" + name + "';").executeQuery();
+		if (rs.next()) {
+			return rs.getInt(5);
+		} else {
+			return -1;
+		}
+	}
+
+	/**
+	 * @param name1
+	 *            Person1 Name
+	 * @param name2
+	 *            Person2 Name
+	 * @return relationship friends/classmate/couples
+	 * @throws SQLException
+	 */
+	public String getRelationship(String name1, String name2) throws SQLException {
+
+		rs = connection
+				.prepareStatement("select * from relation where name1 = '" + name1 + "' and name2 = '" + name2 + "';")
+				.executeQuery();
+		String re = "";
+
+		while (rs.next()) {
+			re = rs.getString(3);
+		}
+		return re;
 	}
 
 	public void commitConn() throws SQLException {

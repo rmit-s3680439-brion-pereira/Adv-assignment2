@@ -11,7 +11,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- * GUIMiniNet class has code to build the GUI and it uses PersonDao to access Database tables.
+ * GUIMiniNet class has code to build the GUI and it uses PersonDao to access
+ * Database tables.
  * 
  * @author Brion Pereira
  * @createdOn 18 May 2018
@@ -335,7 +336,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				}
 				JOptionPane.showMessageDialog(this,
 						"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: " + person.getStatus()
-								+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
+						+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
 						"Display Information", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 
 			}
@@ -407,8 +408,100 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 			}
 
 		}
-		
-		//Action event to Reset
+
+		// Action Event to Get Relation between 2 person
+		if (e.getSource() == b1) {
+			try {
+				String name1 = JOptionPane.showInputDialog(this, "Enter First Person Name: ");
+				String name2 = JOptionPane.showInputDialog(this, "Enter Second Person Name: ");
+
+				System.out.println("name1 =" + name1 + "\n name2=" + name2);
+
+				String r = personDao.getRelationship(name1, name2);
+
+				personDao.commitConn();
+
+				if (!r.equals(""))
+					JOptionPane.showMessageDialog(this, "Relation between " + name1 + " and " + name2 + " is : " + r,
+							"Search Relation", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(this, "Relation between " + name1 + " and " + name2 + " No Relation ",
+							"Search Relation", JOptionPane.ERROR_MESSAGE);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		// Action Event to Define Relation Button
+		if (e.getSource() == b2) {
+			try {
+				String name1 = JOptionPane.showInputDialog(this, "Enter First Person Name: ");
+				String name2 = JOptionPane.showInputDialog(this, "Enter Second Person Name: ");
+				String rel = JOptionPane.showInputDialog(this, "Enter Relation Between ");
+
+				int age1 = personDao.isPersonExisting(name1);
+				int age2 = personDao.isPersonExisting(name2);
+
+				if (age1 != -1 && age2 != -1) {
+					String re = "";
+
+					String r = personDao.getRelationship(name1, name2);
+
+					if (!r.equals("")) {
+						JOptionPane.showMessageDialog(this,
+								"Already Existing Relation between " + name1 + " and " + name2 + " is " + rel, "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						if (age2 <= 2)
+							throw new TooYoungException(" age is less than or equal to 2 ");
+						else if (((age1 > 16) && (age2 > 2 && age2 < 16)))
+							throw new NotToBeFriendsException(" Adult and Children not friend");
+						else if (((age1 > 2 && age1 < 16) && (age2 > 2 && age2 < 16)) && (age1 - age2) > 3)
+							throw new NotToBeFriendsException("Two children age gap larger than 3.");
+						else if (re.equalsIgnoreCase("couple")) {
+							if ((age1 > 2 && age1 < 16) || (age2 > 2 && age2 < 16))
+								throw new NotToBeCoupledException("Aleast one member is not an adult.");
+						} else if (re.equalsIgnoreCase("colleague")) {
+							if (age2 > 2 && age2 < 16)
+								throw new NotToBeColleaguesException("a child in a colleague relation");
+						} else if (re.equalsIgnoreCase("classmate")) {
+							if (age2 <= 2)
+								throw new NotToBeClassmatesException("a young child in a classmate relation");
+						} else {
+							personDao.save(name1, name2, rel);
+							JOptionPane.showMessageDialog(this, "Added Successfully Relation !!!", "Relation",
+									JOptionPane.INFORMATION_MESSAGE);
+
+							personDao.commitConn();
+						}
+
+					}
+
+				} else
+					JOptionPane.showMessageDialog(this,
+							"Both Name " + name1 + " and " + name2
+							+ " Not Found in Social Network, Please Enter Existing Name",
+							"Relation", JOptionPane.ERROR_MESSAGE);
+			}
+
+			catch (TooYoungException ex) {
+				JOptionPane.showMessageDialog(this, ex, "TooYoungException", JOptionPane.ERROR_MESSAGE);
+			} catch (NotToBeFriendsException ex) {
+				JOptionPane.showMessageDialog(this, ex, "NotToBeFriendsException", JOptionPane.ERROR_MESSAGE);
+			} catch (NotToBeCoupledException ex) {
+				JOptionPane.showMessageDialog(this, ex, "NotToBeCoupledException", JOptionPane.ERROR_MESSAGE);
+			} catch (NotToBeColleaguesException ex) {
+				JOptionPane.showMessageDialog(this, ex, "NotToBeColleaguesException", JOptionPane.ERROR_MESSAGE);
+			} catch (NotToBeClassmatesException ex) {
+				JOptionPane.showMessageDialog(this, ex, "NotToBeClassmatesException", JOptionPane.ERROR_MESSAGE);
+			}
+
+			catch (SQLException ex) {
+			}
+
+		}
+
+		// Action event to Reset
 		if (e.getSource() == jButton5) {
 			jTextField1.setText("");
 			jTextField2.setText("");
@@ -425,9 +518,9 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 			} catch (SQLException ex) {
 			}
 
-		} 
-		
-		//Exit
+		}
+
+		// Exit
 		if (e.getSource() == exit) {
 			System.exit(0);
 		}
