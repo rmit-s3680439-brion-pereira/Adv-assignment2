@@ -35,31 +35,31 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 		jLabel1 = new javax.swing.JLabel(); // Title Label
 		jPanel1 = new javax.swing.JPanel(); // Panel 1
-		jButton1 = new javax.swing.JButton(); // Add Button
-		jButton2 = new javax.swing.JButton(); // Display Button
-		jButton3 = new javax.swing.JButton(); // Delete Button
-		jTextField1 = new javax.swing.JTextField();
-		jLabel2 = new javax.swing.JLabel(); // Select person label
-		jButton4 = new javax.swing.JButton(); // Submit Button
+		addBtn = new javax.swing.JButton(); // Add Button
+		displayBtn = new javax.swing.JButton(); // Display Button
+		deleteBtn = new javax.swing.JButton(); // Delete Button
+		genderTextField = new javax.swing.JTextField();
+		selectPersonLbl = new javax.swing.JLabel(); // Select person label
+		submitBtn = new javax.swing.JButton(); // Submit Button
 		jLabel3 = new javax.swing.JLabel();
-		jButton7 = new javax.swing.JButton(); // Load Button
+		loadBtn = new javax.swing.JButton(); // Load Button
 		jPanel2 = new javax.swing.JPanel(); // Panel 2
-		jLabel4 = new javax.swing.JLabel(); // Name Label
-		jTextField2 = new javax.swing.JTextField();
-		jLabel5 = new javax.swing.JLabel(); // Status Label
-		jTextField3 = new javax.swing.JTextField();
-		jLabel6 = new javax.swing.JLabel(); // Age Label
-		jTextField4 = new javax.swing.JTextField();
-		jComboBox2 = new javax.swing.JComboBox<>(); // State list combobox
-		jLabel7 = new javax.swing.JLabel(); // Gender
-		jLabel8 = new javax.swing.JLabel(); // State Label
-		jLabel9 = new javax.swing.JLabel(); // Choose image Label
-		jComboBox3 = new javax.swing.JComboBox<>(); // List of People
-		jButton6 = new javax.swing.JButton(); // Select image Button
+		nameLbl = new javax.swing.JLabel(); // Name Label
+		nameTextField = new javax.swing.JTextField();
+		statusLbl = new javax.swing.JLabel(); // Status Label
+		statusTextField = new javax.swing.JTextField();
+		ageLbl = new javax.swing.JLabel(); // Age Label
+		ageTextField = new javax.swing.JTextField();
+		stateListComBox = new javax.swing.JComboBox<>(); // State list combobox
+		genderLbl = new javax.swing.JLabel(); // Gender
+		stateLbl = new javax.swing.JLabel(); // State Label
+		chooseImageLbl = new javax.swing.JLabel(); // Choose image Label
+		personListComBox = new javax.swing.JComboBox<>(); // List of People
+		selectImgBtn = new javax.swing.JButton(); // Select image Button
 		jPanel3 = new javax.swing.JPanel(); // Panel 3
 		jScrollPane1 = new javax.swing.JScrollPane();
 		jTextArea1 = new javax.swing.JTextArea();
-		jButton5 = new javax.swing.JButton(); // Reset Button
+		resetBtn = new javax.swing.JButton(); // Reset Button
 		exit = new javax.swing.JButton(); // Exit Button
 		b1 = new javax.swing.JButton(); // Find relation
 		b2 = new javax.swing.JButton(); // Define relation
@@ -79,31 +79,31 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		jPanel1.setBounds(0, 50, 880, 200);
 		jPanel1.setLayout(null);
 
-		jButton1.setText("Add a Person into the Network");
-		jButton1.setToolTipText("");
-		jButton1.addActionListener(this);
-		jButton1.setBounds(15, 30, 250, 25);
+		addBtn.setText("Add a Person into the Network");
+		addBtn.setToolTipText("");
+		addBtn.addActionListener(this);
+		addBtn.setBounds(15, 30, 250, 25);
 
-		jButton2.setText("Display Profile of Selected Person");
-		jButton2.setToolTipText("");
-		jButton2.addActionListener(this);
-		jButton2.setBounds(15, 80, 250, 25);
+		displayBtn.setText("Display Profile of Selected Person");
+		displayBtn.setToolTipText("");
+		displayBtn.addActionListener(this);
+		displayBtn.setBounds(15, 80, 250, 25);
 
-		jButton3.setText("Delete Selected Person From Network");
-		jButton3.addActionListener(this);
-		jButton3.setBounds(15, 130, 250, 25);
+		deleteBtn.setText("Delete Selected Person From Network");
+		deleteBtn.addActionListener(this);
+		deleteBtn.setBounds(15, 130, 250, 25);
 
-		jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jLabel2.setText("Select Person: ");
-		jLabel2.setBounds(480, 25, 155, 25);
+		selectPersonLbl.setFont(new java.awt.Font("Tahoma", 1, 18));
+		selectPersonLbl.setText("Select Person: ");
+		selectPersonLbl.setBounds(480, 25, 155, 25);
 
-		jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>());
-		jComboBox3.setBounds(610, 25, 200, 25);
+		personListComBox.setModel(new javax.swing.DefaultComboBoxModel<>());
+		personListComBox.setBounds(610, 25, 200, 25);
 
-		jButton7.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jButton7.setText("Loading Person Name");
-		jButton7.addActionListener(this);
-		jButton7.setBounds(610, 80, 200, 25);
+		loadBtn.setFont(new java.awt.Font("Tahoma", 1, 14));
+		loadBtn.setText("Loading Person Name");
+		loadBtn.addActionListener(this);
+		loadBtn.setBounds(610, 80, 200, 25);
 
 		exit.setFont(new java.awt.Font("Tahoma", 1, 14));
 		exit.setText("EXIT");
@@ -126,12 +126,12 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		b3.setBounds(300, 160, 250, 20);
 
 		// Adding Components to Panel1
-		jPanel1.add(jButton1);
-		jPanel1.add(jButton2);
-		jPanel1.add(jButton3);
-		jPanel1.add(jLabel2);
-		jPanel1.add(jComboBox3);
-		jPanel1.add(jButton7);
+		jPanel1.add(addBtn);
+		jPanel1.add(displayBtn);
+		jPanel1.add(deleteBtn);
+		jPanel1.add(selectPersonLbl);
+		jPanel1.add(personListComBox);
+		jPanel1.add(loadBtn);
 		add(jPanel1);
 		jPanel1.add(exit);
 		jPanel1.add(b1);
@@ -143,81 +143,81 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		jPanel2.setBounds(0, 255, 880, 200);
 		jPanel2.setLayout(null);
 
-		jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jLabel4.setText("Name");
-		jLabel4.setBounds(15, 30, 150, 25);
+		nameLbl.setFont(new java.awt.Font("Tahoma", 1, 14));
+		nameLbl.setText("Name");
+		nameLbl.setBounds(15, 30, 150, 25);
 
-		jTextField2.setBounds(100, 30, 150, 25);
-		jTextField2.setEnabled(false);
+		nameTextField.setBounds(100, 30, 150, 25);
+		nameTextField.setEnabled(false);
 
-		jTextField3.setBounds(100, 80, 150, 25);
-		jTextField3.setEnabled(false);
+		statusTextField.setBounds(100, 80, 150, 25);
+		statusTextField.setEnabled(false);
 
 		jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14));
 		jLabel3.setText("");
 		jLabel3.setBounds(450, 80, 155, 25);
 
-		jButton4.setText("Submit");
-		jButton4.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jButton4.setBounds(650, 150, 200, 30);
-		jButton4.addActionListener(this);
-		jButton4.setEnabled(false);
+		submitBtn.setText("Submit");
+		submitBtn.setFont(new java.awt.Font("Tahoma", 1, 14));
+		submitBtn.setBounds(650, 150, 200, 30);
+		submitBtn.addActionListener(this);
+		submitBtn.setEnabled(false);
 
-		jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jLabel5.setText("Status");
-		jLabel5.setBounds(15, 80, 150, 25);
+		statusLbl.setFont(new java.awt.Font("Tahoma", 1, 14));
+		statusLbl.setText("Status");
+		statusLbl.setBounds(15, 80, 150, 25);
 
-		jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jLabel6.setText("Age");
-		jLabel6.setBounds(290, 30, 150, 25);
-		jButton6.setEnabled(false);
+		ageLbl.setFont(new java.awt.Font("Tahoma", 1, 14));
+		ageLbl.setText("Age");
+		ageLbl.setBounds(290, 30, 150, 25);
+		selectImgBtn.setEnabled(false);
 
-		jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jLabel8.setText("State");
-		jLabel8.setBounds(290, 80, 150, 25);
+		stateLbl.setFont(new java.awt.Font("Tahoma", 1, 14));
+		stateLbl.setText("State");
+		stateLbl.setBounds(290, 80, 150, 25);
 
-		jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jLabel9.setText("Choose Image");
-		jLabel9.setBounds(290, 130, 150, 25);
+		chooseImageLbl.setFont(new java.awt.Font("Tahoma", 1, 14));
+		chooseImageLbl.setText("Choose Image");
+		chooseImageLbl.setBounds(290, 130, 150, 25);
 
-		jButton6.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jButton6.setText("select image");
-		jButton6.addActionListener(this);
-		jButton6.setBounds(400, 130, 150, 25);
-		jButton6.setEnabled(false);
+		selectImgBtn.setFont(new java.awt.Font("Tahoma", 1, 18));
+		selectImgBtn.setText("select image");
+		selectImgBtn.addActionListener(this);
+		selectImgBtn.setBounds(400, 130, 150, 25);
+		selectImgBtn.setEnabled(false);
 
-		jTextField4.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jTextField4.setBounds(340, 30, 210, 30);
-		jTextField4.setEnabled(false);
-		jComboBox2.setEnabled(false);
+		ageTextField.setFont(new java.awt.Font("Tahoma", 1, 14));
+		ageTextField.setBounds(340, 30, 210, 30);
+		ageTextField.setEnabled(false);
+		stateListComBox.setEnabled(false);
 
-		jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(
+		stateListComBox.setModel(new javax.swing.DefaultComboBoxModel<>(
 				new String[] { "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA" }));
-		jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jComboBox2.setBounds(340, 80, 210, 30);
+		stateListComBox.setFont(new java.awt.Font("Tahoma", 1, 14));
+		stateListComBox.setBounds(340, 80, 210, 30);
 
-		jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14));
-		jLabel7.setText("Gender");
-		jLabel7.setBounds(15, 130, 150, 25);
+		genderLbl.setFont(new java.awt.Font("Tahoma", 1, 14));
+		genderLbl.setText("Gender");
+		genderLbl.setBounds(15, 130, 150, 25);
 
-		jTextField1.setBounds(100, 130, 150, 25);
+		genderTextField.setBounds(100, 130, 150, 25);
 
 		// Adding components to Panel2
-		jPanel2.add(jLabel4);
-		jPanel2.add(jLabel5);
-		jPanel2.add(jLabel6);
-		jPanel2.add(jLabel7);
-		jPanel2.add(jTextField2);
-		jPanel2.add(jTextField3);
-		jPanel2.add(jTextField4);
+		jPanel2.add(nameLbl);
+		jPanel2.add(statusLbl);
+		jPanel2.add(ageLbl);
+		jPanel2.add(genderLbl);
+		jPanel2.add(nameTextField);
+		jPanel2.add(statusTextField);
+		jPanel2.add(ageTextField);
 		jPanel2.add(jLabel3);
-		jPanel2.add(jButton6);
+		jPanel2.add(selectImgBtn);
 		add(jPanel2);
-		jPanel2.add(jTextField1);
-		jPanel2.add(jComboBox2);
-		jPanel2.add(jButton4);
-		jPanel2.add(jLabel8);
-		jPanel2.add(jLabel9);
+		jPanel2.add(genderTextField);
+		jPanel2.add(stateListComBox);
+		jPanel2.add(submitBtn);
+		jPanel2.add(stateLbl);
+		jPanel2.add(chooseImageLbl);
 
 		jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 3));
 		jPanel3.setBounds(0, 459, 880, 200);
@@ -230,43 +230,43 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		jPanel3.add(jScrollPane1);
 		add(jPanel3);
 
-		jButton5.setBackground(new java.awt.Color(255, 255, 255));
-		jButton5.setFont(new java.awt.Font("Tahoma", 1, 24));
-		jButton5.setText("RESET");
-		jButton5.setBounds(2, 665, 876, 40);
-		jButton5.addActionListener(this);
+		resetBtn.setBackground(new java.awt.Color(255, 255, 255));
+		resetBtn.setFont(new java.awt.Font("Tahoma", 1, 24));
+		resetBtn.setText("RESET");
+		resetBtn.setBounds(2, 665, 876, 40);
+		resetBtn.addActionListener(this);
 
 		add(jLabel1);
-		add(jButton5);
+		add(resetBtn);
 
 	}
 
 	// Variables declaration
-	private javax.swing.JButton jButton1;
-	private javax.swing.JButton jButton2;
-	private javax.swing.JButton jButton3;
-	private javax.swing.JButton jButton4;
-	private javax.swing.JButton jButton5;
-	private javax.swing.JButton jButton6;
-	private javax.swing.JButton jButton7;
+	private javax.swing.JButton addBtn;
+	private javax.swing.JButton displayBtn;
+	private javax.swing.JButton deleteBtn;
+	private javax.swing.JButton submitBtn;
+	private javax.swing.JButton resetBtn;
+	private javax.swing.JButton selectImgBtn;
+	private javax.swing.JButton loadBtn;
 	private javax.swing.JButton exit;
-	private javax.swing.JTextField jTextField4;
-	private javax.swing.JComboBox<String> jComboBox3, jComboBox2;
+	private javax.swing.JTextField ageTextField;
+	private javax.swing.JComboBox<String> personListComBox, stateListComBox;
 	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel selectPersonLbl;
 	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JLabel jLabel5;
-	private javax.swing.JLabel jLabel6, jLabel9;
-	private javax.swing.JLabel jLabel7, jLabel8;
+	private javax.swing.JLabel nameLbl;
+	private javax.swing.JLabel statusLbl;
+	private javax.swing.JLabel ageLbl, chooseImageLbl;
+	private javax.swing.JLabel genderLbl, stateLbl;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel2;
 	private javax.swing.JPanel jPanel3;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextArea jTextArea1;
-	private javax.swing.JTextField jTextField1;
-	private javax.swing.JTextField jTextField2;
-	private javax.swing.JTextField jTextField3;
+	private javax.swing.JTextField genderTextField;
+	private javax.swing.JTextField nameTextField;
+	private javax.swing.JTextField statusTextField;
 	private JFileChooser fileChooser;
 	private javax.swing.JButton b1;
 	private javax.swing.JButton b2;
@@ -280,20 +280,20 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		// System.out.println("MiniNet");
 
 		// Action Event on clicking Add a Person and enable GUI component in jPanel2
-		if (e.getSource() == jButton1) {
-			jTextField1.setEnabled(true);
-			jTextField2.setEnabled(true);
-			jTextField3.setEnabled(true);
-			jTextField4.setEnabled(true);
-			jComboBox2.setEnabled(true);
-			jButton6.setEnabled(true);
-			jButton4.setEnabled(true);
+		if (e.getSource() == addBtn) {
+			genderTextField.setEnabled(true);
+			nameTextField.setEnabled(true);
+			statusTextField.setEnabled(true);
+			ageTextField.setEnabled(true);
+			stateListComBox.setEnabled(true);
+			selectImgBtn.setEnabled(true);
+			submitBtn.setEnabled(true);
 		}
 
 		// Action Event to add image
-		if (e.getSource() == jButton6) {
+		if (e.getSource() == selectImgBtn) {
 			fileChooser = new JFileChooser(new File("./photos"));
-			int returnVal = fileChooser.showOpenDialog(jButton1);
+			int returnVal = fileChooser.showOpenDialog(addBtn);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				files = fileChooser.getSelectedFile();
 				JOptionPane.showMessageDialog(this, "Photo name: " + files.getName(), "Choose Image",
@@ -302,13 +302,13 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		}
 
 		// Action Event to display person
-		if (e.getSource() == jButton2) {
-			if (jComboBox3.getItemCount() == 0)
+		if (e.getSource() == displayBtn) {
+			if (personListComBox.getItemCount() == 0)
 				JOptionPane.showMessageDialog(this, "First Load Name From Database", "Loading",
 						JOptionPane.INFORMATION_MESSAGE);
 			else {
 
-				String name = jComboBox3.getSelectedItem().toString();
+				String name = personListComBox.getSelectedItem().toString();
 				jTextArea1.setText("Name \t\t Gender \t Age \t State \t Status");
 				jTextArea1.append(
 						"\n================================================================================\n\n");
@@ -351,12 +351,12 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		}
 
 		// Action Event to delete person
-		if (e.getSource() == jButton3) {
-			if (jComboBox3.getItemCount() == 0)
+		if (e.getSource() == deleteBtn) {
+			if (personListComBox.getItemCount() == 0)
 				JOptionPane.showMessageDialog(this, "First Load Name From Database", "Loading",
 						JOptionPane.INFORMATION_MESSAGE);
 			else {
-				String name = jComboBox3.getSelectedItem().toString();
+				String name = personListComBox.getSelectedItem().toString();
 
 				name = name.trim();
 				try {
@@ -364,11 +364,11 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 					personDao.commitConn();
 					JOptionPane.showMessageDialog(this, "Deleted Successfully in Network !!!", "Deleted",
 							JOptionPane.INFORMATION_MESSAGE);
-					jComboBox3.removeAllItems();
+					personListComBox.removeAllItems();
 					List<String> persons = personDao.getAllNames();
 
 					for (String person : persons) {
-						jComboBox3.addItem(person);
+						personListComBox.addItem(person);
 					}
 
 				} catch (Exception ex) {
@@ -377,13 +377,13 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		}
 
 		// Action Event to submit button to add person
-		if (e.getSource() == jButton4) {
+		if (e.getSource() == submitBtn) {
 			try {
-				String name = jTextField2.getText().trim();
-				String status = jTextField3.getText().trim();
-				String gender = jTextField1.getText().trim();
-				int age = Integer.parseInt(jTextField4.getText().trim());
-				String state = jComboBox2.getSelectedItem().toString();
+				String name = nameTextField.getText().trim();
+				String status = statusTextField.getText().trim();
+				String gender = genderTextField.getText().trim();
+				int age = Integer.parseInt(ageTextField.getText().trim());
+				String state = stateListComBox.getSelectedItem().toString();
 
 				if (age <= 0 || age > 150)
 					throw new NoSuchAgeException("Age should be greater than 0 and less than 150");
@@ -405,7 +405,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Added Successfully in Network !!!", "Add Person",
 						JOptionPane.INFORMATION_MESSAGE);
 
-				jComboBox3.removeAllItems();
+				personListComBox.removeAllItems();
 				List<String> persons = null;
 				try {
 					persons = personDao.getAllNames();
@@ -414,7 +414,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 				for (String person : persons) {
-					jComboBox3.addItem(person);
+					personListComBox.addItem(person);
 				}
 
 				personDao.commitConn();
@@ -424,19 +424,19 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 			}
 
 			// Disable to jPanel2
-			jTextField1.setEnabled(false);
-			jTextField2.setEnabled(false);
-			jTextField3.setEnabled(false);
-			jTextField4.setEnabled(false);
-			jComboBox2.setEnabled(false);
-			jButton6.setEnabled(false);
-			jButton4.setEnabled(false);
+			genderTextField.setEnabled(false);
+			nameTextField.setEnabled(false);
+			statusTextField.setEnabled(false);
+			ageTextField.setEnabled(false);
+			stateListComBox.setEnabled(false);
+			selectImgBtn.setEnabled(false);
+			submitBtn.setEnabled(false);
 
 		}
 
 		// Action event on clicking "Load Person Name"
-		if (e.getSource() == jButton7) {
-			jComboBox3.removeAllItems();
+		if (e.getSource() == loadBtn) {
+			personListComBox.removeAllItems();
 			List<String> persons = null;
 			try {
 				persons = personDao.getAllNames();
@@ -446,7 +446,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 			for (String p : persons) {
-				jComboBox3.addItem(p);
+				personListComBox.addItem(p);
 			}
 
 		}
@@ -577,13 +577,13 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 		}
 
 		// Action event to Reset
-		if (e.getSource() == jButton5) {
-			jTextField1.setText("");
-			jTextField2.setText("");
-			jTextField3.setText("");
-			jTextField4.setText("");
+		if (e.getSource() == resetBtn) {
+			genderTextField.setText("");
+			nameTextField.setText("");
+			statusTextField.setText("");
+			ageTextField.setText("");
 
-			jComboBox3.removeAllItems();
+			personListComBox.removeAllItems();
 			jTextArea1.setText("");
 
 			try {
