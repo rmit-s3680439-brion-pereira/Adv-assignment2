@@ -56,9 +56,13 @@ public class PersonDao {
 
 				pstmt.setString(1, data[0].trim());
 
-				File file = new File("src/" + data[1].trim());
-				InputStream inputImage = new FileInputStream(file);
-				pstmt.setBinaryStream(2, inputImage, (int) (file.length()));
+				File file = new File("photos/" + data[1].trim());
+				if (!file.isDirectory()) {
+					InputStream inputImage = new FileInputStream(file);
+					pstmt.setBinaryStream(2, inputImage, (int) (file.length()));
+				} else {
+					pstmt.setNull(2, java.sql.Types.BLOB);
+				}
 
 				pstmt.setString(3, data[2].trim());
 				pstmt.setString(4, data[3].trim());
@@ -121,11 +125,16 @@ public class PersonDao {
 	 * @throws SQLException
 	 * @throws FileNotFoundException
 	 */
-	public void save(Person p, File photoFile) throws SQLException, FileNotFoundException {
+	public void save(Person p, File photoFile) throws SQLException, FileNotFoundException, Exception {
 		PreparedStatement pstmt = connection.prepareStatement("insert into people values(?,?,?,?,?,?)");
 		pstmt.setString(1, p.getName());
-		InputStream inputImage = new FileInputStream(photoFile);
-		pstmt.setBinaryStream(2, inputImage, (int) (photoFile.length()));
+		if (photoFile != null) {
+			InputStream inputImage = new FileInputStream(photoFile);
+			pstmt.setBinaryStream(2, inputImage, (int) (photoFile.length()));
+		} else {
+			System.out.println("No Picture selected. Saving without a picture");
+			pstmt.setNull(2, java.sql.Types.BLOB);
+		}
 		pstmt.setString(3, p.getStatus());
 		pstmt.setString(4, p.getGender());
 		pstmt.setInt(5, p.getAge());

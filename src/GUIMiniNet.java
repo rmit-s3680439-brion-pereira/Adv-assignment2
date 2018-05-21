@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	File files;
+	File files = null;
 	PersonDao personDao = new PersonDao();
 
 	public GUIMiniNet() {
@@ -292,9 +292,8 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 		// Action Event to add image
 		if (e.getSource() == jButton6) {
-			fileChooser = new JFileChooser(new File("./src"));
+			fileChooser = new JFileChooser(new File("./photos"));
 			int returnVal = fileChooser.showOpenDialog(jButton1);
-
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				files = fileChooser.getSelectedFile();
 				JOptionPane.showMessageDialog(this, "Photo name: " + files.getName(), "Choose Image",
@@ -326,18 +325,26 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 						+ person.getState() + "\t" + person.getStatus());
 				jTextArea1.append(
 						"\n================================================================================\n\n");
-				Blob blob = person.getPhoto();
 				ImageIcon imageIcon = null;
-				try {
-					imageIcon = new ImageIcon(blob.getBytes(1, (int) blob.length()));
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if (person.getPhoto() != null) {
+					try {
+						Blob blob = person.getPhoto();
+						imageIcon = new ImageIcon(blob.getBytes(1, (int) blob.length()));
+						JOptionPane.showMessageDialog(this,
+								"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: "
+										+ person.getStatus() + "\nState: " + person.getState() + "\nGender: "
+										+ person.getGender(),
+								"Display Information", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(this,
+							"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: "
+									+ person.getStatus() + "\nState: " + person.getState() + "\nGender: "
+									+ person.getGender());
 				}
-				JOptionPane.showMessageDialog(this,
-						"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: " + person.getStatus()
-						+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
-						"Display Information", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 
 			}
 
@@ -388,7 +395,12 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				p.setState(state);
 				p.setStatus(status);
 
-				personDao.save(p, files);
+				try {
+					personDao.save(p, files);
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 
 				JOptionPane.showMessageDialog(this, "Added Successfully in Network !!!", "Add Person",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -408,7 +420,6 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				personDao.commitConn();
 			} catch (NoSuchAgeException ex) {
 				JOptionPane.showMessageDialog(this, ex, "NoSuchAgeException", JOptionPane.ERROR_MESSAGE);
-			} catch (IOException ex) {
 			} catch (SQLException ex) {
 			}
 
@@ -511,7 +522,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				} else
 					JOptionPane.showMessageDialog(this,
 							"Both Name " + name1 + " and " + name2
-							+ " Not Found in Social Network, Please Enter Existing Name",
+									+ " Not Found in Social Network, Please Enter Existing Name",
 							"Relation", JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -532,7 +543,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 		}
 
-		//Action Event for to Find child/parent
+		// Action Event for to Find child/parent
 		if (e.getSource() == b3) {
 			String type = JOptionPane.showInputDialog(this, "Press 1 to Find Parent\nPress 2 for Children");
 			try {
@@ -563,29 +574,32 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				ex.printStackTrace();
 			}
 
-			// Action event to Reset
-			if (e.getSource() == jButton5) {
-				jTextField1.setText("");
-				jTextField2.setText("");
-				jTextField3.setText("");
-				jTextField4.setText("");
+		}
 
-				jComboBox3.removeAllItems();
-				jTextArea1.setText("");
+		// Action event to Reset
+		if (e.getSource() == jButton5) {
+			jTextField1.setText("");
+			jTextField2.setText("");
+			jTextField3.setText("");
+			jTextField4.setText("");
 
-				try {
-					personDao.commitConn();
-					personDao.closeRS();
-					personDao.closeConn();
-				} catch (SQLException ex) {
-				}
+			jComboBox3.removeAllItems();
+			jTextArea1.setText("");
 
+			try {
+				personDao.commitConn();
+				personDao.closeRS();
+				personDao.closeConn();
+			} catch (SQLException ex) {
 			}
 
-			// Exit
-			if (e.getSource() == exit) {
-				System.exit(0);
-			}
+		}
+
+		// Exit
+		if (e.getSource() == exit) {
+			System.out.println("Exit");
+			System.exit(0);
+
 		}
 	}
 }
