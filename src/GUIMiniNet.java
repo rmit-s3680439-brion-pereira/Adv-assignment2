@@ -336,7 +336,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				}
 				JOptionPane.showMessageDialog(this,
 						"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: " + person.getStatus()
-								+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
+						+ "\nState: " + person.getState() + "\nGender: " + person.getGender(),
 						"Display Information", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 
 			}
@@ -511,7 +511,7 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 				} else
 					JOptionPane.showMessageDialog(this,
 							"Both Name " + name1 + " and " + name2
-									+ " Not Found in Social Network, Please Enter Existing Name",
+							+ " Not Found in Social Network, Please Enter Existing Name",
 							"Relation", JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -532,28 +532,60 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 
 		}
 
-		// Action event to Reset
-		if (e.getSource() == jButton5) {
-			jTextField1.setText("");
-			jTextField2.setText("");
-			jTextField3.setText("");
-			jTextField4.setText("");
-
-			jComboBox3.removeAllItems();
-			jTextArea1.setText("");
-
+		//Action Event for to Find child/parent
+		if (e.getSource() == b3) {
+			String type = JOptionPane.showInputDialog(this, "Press 1 to Find Parent\nPress 2 for Children");
 			try {
-				personDao.commitConn();
-				personDao.closeRS();
-				personDao.closeConn();
+
+				if (type.equals("1")) {
+					String name = JOptionPane.showInputDialog(this, "Enter Person Name: ");
+					String nm = personDao.isParent(name);
+					if (!nm.equals(""))
+						JOptionPane.showMessageDialog(this, "Parent Found Successfully, Name: " + nm, "Found",
+								JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(this, "Parent Not Found......, Name: " + nm, "Found",
+								JOptionPane.ERROR_MESSAGE);
+
+				} else {
+					String name = JOptionPane.showInputDialog(this, "Enter Person Name: ");
+					String nm = personDao.isChild(name);
+
+					if (!nm.equals(""))
+						JOptionPane.showMessageDialog(this, "Children Found Successfully, Name: " + nm, "Found",
+								JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(this, "Children Not Found......, Name: " + nm, "Found",
+								JOptionPane.ERROR_MESSAGE);
+
+				}
 			} catch (SQLException ex) {
+				ex.printStackTrace();
 			}
 
-		}
+			// Action event to Reset
+			if (e.getSource() == jButton5) {
+				jTextField1.setText("");
+				jTextField2.setText("");
+				jTextField3.setText("");
+				jTextField4.setText("");
 
-		// Exit
-		if (e.getSource() == exit) {
-			System.exit(0);
+				jComboBox3.removeAllItems();
+				jTextArea1.setText("");
+
+				try {
+					personDao.commitConn();
+					personDao.closeRS();
+					personDao.closeConn();
+				} catch (SQLException ex) {
+				}
+
+			}
+
+			// Exit
+			if (e.getSource() == exit) {
+				System.exit(0);
+			}
 		}
 	}
 }

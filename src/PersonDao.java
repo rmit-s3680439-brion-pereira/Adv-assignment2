@@ -152,10 +152,12 @@ public class PersonDao {
 		pstmt.setString(3, rel);
 		pstmt.execute();
 	}
-	
+
 	/**
 	 * Delete person for the network.
-	 * @param name Person Name
+	 * 
+	 * @param name
+	 *            Person Name
 	 * @throws SQLException
 	 */
 	public void delete(String name) throws SQLException {
@@ -227,6 +229,40 @@ public class PersonDao {
 			re = rs.getString(3);
 		}
 		return re;
+	}
+
+	/**
+	 * @param person
+	 *            Person Name
+	 * @return
+	 * @throws SQLException
+	 */
+	public String isParent(String person) throws SQLException {
+		rs = connection
+				.prepareStatement("select * from relation where name1 = '" + person + "' and relationship = 'parent';")
+				.executeQuery();
+		if (rs.next()) {
+			return rs.getString(2);
+		} else {
+			return "";
+		}
+	}
+
+	/**
+	 * @param person
+	 *            Person Name
+	 * @return
+	 * @throws SQLException
+	 */
+	public String isChild(String person) throws SQLException {
+		rs = connection
+				.prepareStatement("select * from relation where name1 = '" + person + "' and relationship = 'child';")
+				.executeQuery();
+		if (rs.next()) {
+			return rs.getString(2);
+		} else {
+			return "";
+		}
 	}
 
 	public void commitConn() throws SQLException {
