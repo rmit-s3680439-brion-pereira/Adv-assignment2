@@ -47,7 +47,7 @@ public class PersonDao {
 			connection.prepareStatement("Drop table people if exists;").execute();
 			connection.prepareStatement(
 					"create table people(name varchar(20) not null, photo blob, status varchar(60) not null, gender varchar(10) not null, age integer not null, state varchar(40) not null);")
-			.execute();
+					.execute();
 
 			String line = br.readLine();
 			while (line != null) {
@@ -76,7 +76,7 @@ public class PersonDao {
 			connection.prepareStatement("drop table relation if exists;").execute();
 			connection.prepareStatement(
 					"create table relation(name1 varchar(60) not null, name2 varchar(60) not null, relationship varchar(45) not null);")
-			.execute();
+					.execute();
 			line = br.readLine();
 			while (line != null) {
 				String[] data = line.split(",");
@@ -143,7 +143,7 @@ public class PersonDao {
 	}
 
 	/**
-	 * Override Save Method to define relation
+	 * Overload Save Method to define relation
 	 * 
 	 * @param name1
 	 *            Name of Person1

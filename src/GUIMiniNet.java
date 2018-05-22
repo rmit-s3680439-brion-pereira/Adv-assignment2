@@ -343,7 +343,8 @@ public class GUIMiniNet extends javax.swing.JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(this,
 							"Name: " + person.getName() + "\nAge: " + person.getAge() + "\nStatus: "
 									+ person.getStatus() + "\nState: " + person.getState() + "\nGender: "
-									+ person.getGender());
+									+ person.getGender(),
+									"Display Information", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("photos/noimage.png"));
 				}
 
 			}
